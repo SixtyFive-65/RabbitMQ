@@ -1,0 +1,61 @@
+1. Download RabbitMQ (Install on C drive, create RabbitMQ folder)
+ - https://www.rabbitmq.com/docs/install-windows#installer
+ 
+2. Download Erlang(normal install -> use same folder as rabbit install or just click next)
+
+-https://www.erlang.org/downloads
+
+3.Open command prompt and navigate to RabbitMQ server url (recently created foler on c drive) -> copy from adress bar
+
+->cd C:\RabbitMQ\rabbitmq_server-3.13.0
+
+4. create batch file called "rabitenv" inside "sbin" folder.
+
+-----------------New text file save as  rabitenv.bat-------
+set ERLANG_HOME=C:\RabbitMQ\Erlang OTP
+set RABBITMQ_NODE_PORT=5672
+set RABBITMQ_DIST_PORT=25672
+set RABBITMQ_NODENAME=rabbit1@localhost
+set RABBITMQ_MNESIA_BASE=C:\tmp\rabbit1
+set RABBITMQ_MNESIA_DIR=C:\tmp\rabbit1\data
+set RABBITMQ_LOG_BASE=C:\tmp\rabbit1\logs
+set RABBITMQ_CONFIG_FILE=C:\RabbitMQ\rabbitmq_server-3.9.10\config\rabbitmq
+set RABBITMQ_ENABLED_PLUGINS_FILE=C:\tmp\rabbit1\enabled_plugins
+
+----------------end file content ----------------------------
+
+->cd sbin
+
+5.execute environment batch file (inside sbin folder)
+
+->rabitenv.bat
+
+6.Run the rabbit server (also inside sbin folder)
+
+->rabbitmq-server.bat
+
+7. Got to https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/docs
+
+- download https://github.com/rabbitmq/rabbitmq-server/blob/main/deps/rabbit/docs/rabbitmq.conf.example
+
+8.update contents of advanced.config with the github file contents( NB extention should be .conf( file type : CONFIG File)) --check error logs for file location if you struggle
+ -> Create rabbitmq.conf (C:\RabbitMQ\rabbitmq_server-3.9.10\config\rabbitmq) -> configuration file 
+9.Stop Rabbit node -> ctrl+c on command propmpt -> a(abort) -> y(yes)
+
+10. Install UI management plugin(Inside sbin folder run below command)
+
+->rabbitmq-plugins.bat enable rabbitmq_management
+
+10. Run Rabbit node again
+
+->rabbitmq-server.bat   (it should complete with 3 plugins)
+
+11.Open http://localhost:15672/ to open rabbit UI management  (default credentials -> user : guest, password : guest)
+
+
+
+12.Add New User with Admin rights (CMD inside sbin folder)
+
+rabbitmqctl add_user mxolisi password
+rabbitmqctl set_user_tags mxolisi administrator
+rabbitmqctl set_permissions -p / mxolisi ".*" ".*" ".*"

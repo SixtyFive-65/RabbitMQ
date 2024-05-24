@@ -1,0 +1,76 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Learning\\ASP.NET CORE Web API .NET8\\PROJECTS\\Projects\\Rabbit Tutor\\Rabbit_Producer_Consumer\\Rabbt.Procuer_Consumer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B1016578-9E5F-467E-9F94-3EBECC6688DB}|Consumer\\Consumer.csproj|c:\\learning\\asp.net core web api .net8\\projects\\projects\\rabbit tutor\\rabbit_producer_consumer\\rabbt.procuer_consumer\\consumer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1016578-9E5F-467E-9F94-3EBECC6688DB}|Consumer\\Consumer.csproj|solutionrelative:consumer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B1016578-9E5F-467E-9F94-3EBECC6688DB}|Consumer\\Consumer.csproj|c:\\learning\\asp.net core web api .net8\\projects\\projects\\rabbit tutor\\rabbit_producer_consumer\\rabbt.procuer_consumer\\consumer\\queueconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1016578-9E5F-467E-9F94-3EBECC6688DB}|Consumer\\Consumer.csproj|solutionrelative:consumer\\queueconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{556A4844-3B84-45CE-8995-7AB61632BFEB}|Producer\\Producer.csproj|c:\\learning\\asp.net core web api .net8\\projects\\projects\\rabbit tutor\\rabbit_producer_consumer\\rabbt.procuer_consumer\\producer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{556A4844-3B84-45CE-8995-7AB61632BFEB}|Producer\\Producer.csproj|solutionrelative:producer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Learning\\ASP.NET CORE Web API .NET8\\PROJECTS\\Projects\\Rabbit Tutor\\Rabbit_Producer_Consumer\\Rabbt.Procuer_Consumer\\Consumer\\Program.cs",
+              "RelativeDocumentMoniker": "Consumer\\Program.cs",
+              "ToolTip": "C:\\Learning\\ASP.NET CORE Web API .NET8\\PROJECTS\\Projects\\Rabbit Tutor\\Rabbit_Producer_Consumer\\Rabbt.Procuer_Consumer\\Consumer\\Program.cs",
+              "RelativeToolTip": "Consumer\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T14:17:51.593Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "QueueConsumer.cs",
+              "DocumentMoniker": "C:\\Learning\\ASP.NET CORE Web API .NET8\\PROJECTS\\Projects\\Rabbit Tutor\\Rabbit_Producer_Consumer\\Rabbt.Procuer_Consumer\\Consumer\\QueueConsumer.cs",
+              "RelativeDocumentMoniker": "Consumer\\QueueConsumer.cs",
+              "ToolTip": "C:\\Learning\\ASP.NET CORE Web API .NET8\\PROJECTS\\Projects\\Rabbit Tutor\\Rabbit_Producer_Consumer\\Rabbt.Procuer_Consumer\\Consumer\\QueueConsumer.cs",
+              "RelativeToolTip": "Consumer\\QueueConsumer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABSAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T14:44:13.2Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Learning\\ASP.NET CORE Web API .NET8\\PROJECTS\\Projects\\Rabbit Tutor\\Rabbit_Producer_Consumer\\Rabbt.Procuer_Consumer\\Producer\\Program.cs",
+              "RelativeDocumentMoniker": "Producer\\Program.cs",
+              "ToolTip": "C:\\Learning\\ASP.NET CORE Web API .NET8\\PROJECTS\\Projects\\Rabbit Tutor\\Rabbit_Producer_Consumer\\Rabbt.Procuer_Consumer\\Producer\\Program.cs",
+              "RelativeToolTip": "Producer\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T12:38:09.908Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

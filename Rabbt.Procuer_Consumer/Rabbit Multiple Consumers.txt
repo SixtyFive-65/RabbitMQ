@@ -1,0 +1,102 @@
+--https://www.youtube.com/watch?v=Cm2psU-zN90
+
+****************************************************************Multiple Consumers
+
+--#### Messages get distributed evenley between the consumers, Consumer A will have the Even numbers and consumer B will have the odd numbers.######
+
+Rabbit ensures that the consumers get different messages.
+
+--You can run the exe file to run the project in release mode
+
+1. Create Producer class
+
+public class QueueProducer
+{
+	public static void Publish(IModel channel, string myQueue)
+	{
+		channel.QueueDeclare(myQueue,   //Create Queue
+			durable: true,
+			exclusive: false,
+			autoDelete: false,
+			arguments: null
+			);
+
+		var count = 0;
+
+		while (true)  // Produce multiple messages
+		{
+			var message = new { Name = "Producer", Message = $"I'm producing on Rabbit {count}" };
+
+			var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));  // convert message to byte array
+
+			channel.BasicPublish("", myQueue, null, body);
+			count++;
+			Thread.Sleep(1000);    //wait a second
+		}
+	}
+}
+->
+
+{
+    var myQueue = "MX_Rabbit_Demo";
+    var rabbitUrl = "amqp://dev:qfEzvoWeNFMAX82I9jos@172.27.215.81:5672/dev";
+
+    var factory = new ConnectionFactory()   //Create connection factory
+    {
+        Uri = new Uri(rabbitUrl)
+    };
+
+    using var connection = factory.CreateConnection();  //Create connection
+    using var channel = connection.CreateModel();    //Create Channel
+
+    QueueProducer.Publish(channel, myQueue);
+}
+
+2. Consumer class
+
+public class QueueConsumer
+{
+   public static void Consume(IModel channel, string myQueue)
+   {
+	   channel.QueueDeclare(myQueue,   //Create Queue
+			 durable: true,
+			 exclusive: false,
+			 autoDelete: false,
+			 arguments: null
+			 );
+
+	   var consumer = new EventingBasicConsumer(channel);  // Create consumer
+
+	   string consumedMessage = "";
+
+	   consumer.Received += (sender, e) =>
+	   {
+		   var body = e.Body.ToArray();  // Get Body as byte array
+		   var message = Encoding.UTF8.GetString(body); // convert message to string
+
+		   consumedMessage = message;
+
+		   Console.WriteLine(message);
+	   };
+
+	   channel.BasicConsume(myQueue, true, consumer);
+	   Console.WriteLine("Consumer Started");
+	   Console.ReadLine();
+   }
+}
+->
+
+{
+    var myQueue = "MX_Rabbit_Demo";
+    var rabbitUrl = "amqp://dev:qfEzvoWeNFMAX82I9jos@172.27.215.81:5672/dev";
+
+    var factory = new ConnectionFactory()   //Create connection factory
+    {
+        Uri = new Uri(rabbitUrl)
+    };
+
+    using var connection = factory.CreateConnection();  //Create connection
+    using var channel = connection.CreateModel();    //Create Channel
+
+    QueueConsumer.Consume(channel,myQueue);
+}

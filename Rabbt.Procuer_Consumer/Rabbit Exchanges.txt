@@ -1,0 +1,123 @@
+https://www.youtube.com/watch?v=EtTPtnn6uKE
+https://www.youtube.com/watch?v=rUKqaO8IQCE
+
+-Exchange
+  -> exchanges for messages.
+  -> uses Header Attributes, Routing Keys and Binding to route messages.
+  
+  
+Direct Exchange 
+  -> uses routing key in the header to identify which queue the message should be sent to.
+  ->Routing key is a header value set by the producer and consumer uses the key to bind to the queue(exact match of routing key values).
+
+Topic Exchange 
+  -> Also uses routing keys from the header but does not use an exact match, it uses a pattern match.
+
+Header Exchange 
+ -> routes messages based on header values, similar to topic exchange
+ 
+Fanout 
+  ->routes messages to all queues bound to it
+ 
+
+## 
+ 
+1. Direct exchange class  (No Queue name on the producer, we will bind to the queuename on the consumer)
+
+public class DirectExchangeProducer
+{
+	public static void Publish(IModel channel)
+	{
+		var ttl = new Dictionary<string, object>()  // ttl : time ti leave (30s before message leaves the queue)
+		{
+			{"x-message-ttl", 30000 }
+		};
+
+
+		channel.ExchangeDeclare("MX-DirectExchange", type: ExchangeType.Direct, arguments: ttl);  //Declare direct exchange 
+
+		var count = 0;
+
+		while (true)  // Produce multiple messages
+		{
+			var message = new { Name = "Producer", Message = $"I'm producing on a direct exchange {count}" };
+
+			var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));  // convert message to byte array
+
+			channel.BasicPublish("MX-DirectExchange", "MX.init", null, body);
+			count++;
+			Thread.Sleep(1000);    //wait a second
+		}
+	}
+}
+->
+
+{
+    var rabbitUrl = "amqp://dev:qfEzvoWeNFMAX82I9jos@172.27.215.81:5672/dev";
+
+    var factory = new ConnectionFactory()   //Create connection factory
+    {
+        Uri = new Uri(rabbitUrl)
+    };
+
+    using var connection = factory.CreateConnection();  //Create connection
+    using var channel = connection.CreateModel();    //Create Channel
+
+    DirectExchangeProducer.Publish(channel);
+}
+
+
+2. we bind to the exchange and set the queuename we are consuming from 
+
+public class DirectExchangeConsumer
+{
+	public static void Consume(IModel channel)
+	{
+		channel.ExchangeDeclare("MX-DirectExchange", type: ExchangeType.Direct);  //Create exchange
+
+		channel.QueueDeclare("MX_Rabbit_Direct",   //Create Queue
+			  durable: true,
+			  exclusive: false,
+			  autoDelete: false,
+			  arguments: null
+			  );
+	   
+		channel.QueueBind("MX_Rabbit_Direct", "MX-DirectExchange", "MX.init");
+	   
+		channel.BasicQos(0, 10, false);  // Consumer will take 10 messages at a time                                                    
+
+		var consumer = new EventingBasicConsumer(channel);  // Create consumer
+
+		string consumedMessage = "";
+
+		consumer.Received += (sender, e) =>    //Consume messages
+		{
+			var body = e.Body.ToArray();  // Get Body as byte array
+			var message = Encoding.UTF8.GetString(body); // convert message to string
+
+			consumedMessage = message;
+
+			Console.WriteLine(message);
+		};
+
+		channel.BasicConsume("MX_Rabbit_Direct", true, consumer);
+		Console.WriteLine("Consumer Started");
+		Console.ReadLine();
+	}
+}
+
+->
+
+{
+    var rabbitUrl = "amqp://dev:qfEzvoWeNFMAX82I9jos@172.27.215.81:5672/dev";
+
+    var factory = new ConnectionFactory()   //Create connection factory
+    {
+        Uri = new Uri(rabbitUrl)
+    };
+
+    using var connection = factory.CreateConnection();  //Create connection
+    using var channel = connection.CreateModel();    //Create Channel
+
+    DirectExchangeConsumer.Consume(channel);
+}

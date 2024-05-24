@@ -1,0 +1,34 @@
+1. Inject IServiceScopeFactory and use that to create a scope factory
+namespace Consumer
+{
+    public class Worker : BackgroundService
+    {
+        private readonly ILogger<Worker> _logger;
+        private readonly IServiceScopeFactory _scopeFactory;
+
+
+        public Worker(ILogger<Worker> logger, IServiceScopeFactory scopeFactory)
+        {
+            _logger = logger;
+            _scopeFactory = scopeFactory;
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                using (var scope = _scopeFactory.CreateScope())
+                {
+                    var _orderingContext = scope.ServiceProvider.GetRequiredService<FinancialDashboardDbContext>();
+
+                    var withdrwals = await _orderingContext.WithdrawalTransactionRuleResult.ToListAsync();
+
+                }
+
+                var consumer = new WithdrawalRulesConsumer(_logger);
+
+                consumer.Consume();
+            }
+        }
+    }
+}
